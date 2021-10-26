@@ -10,24 +10,30 @@ function getContent(data, i) {
 }
 
 function updateSmartphoneForm(id) {
-    document.getElementById("update-smartphone").innerHTML = `<table>
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/smartphones/${id}`,
+        success: function (smartphone){
+            $("#update-smartphone").html( `<table>
         <tr>
             <td>Producer:</td>
-            <td><input type="text" id="producer" placeholder="producer"></td>
+            <td><input type="text" id="producer" value="${smartphone.producer}" placeholder="producer"></td>
         </tr>
         <tr>
             <td>Model:</td>
-            <td><input type="text" id="model" placeholder="model"></td>
+            <td><input type="text" id="model" value="${smartphone.model}" placeholder="model"></td>
         </tr>
         <tr>
             <td>Price:</td>
-            <td><input type="text" id="price" placeholder="price"></td>
+            <td><input type="text" id="price" value="${smartphone.price}" placeholder="price"></td>
         </tr>
         <tr>
             <td></td>
             <td><input type="button" value="Update" onclick="updateSmartphone(${id})"></td>
         </tr>
-    </table>`
+    </table>`)
+        }
+    });
 }
 
 function updateSmartphone(id) {
